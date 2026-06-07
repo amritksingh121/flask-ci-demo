@@ -1,0 +1,30 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - pip install -r requirements.txt
+
+  pre_build:
+    commands:
+      - echo "Running tests..."
+      - pytest tests/
+      - echo "Running lint..."
+      - flake8 app.py
+      - echo "Running security scan..."
+      - bandit -r app.py
+      - echo "Logging into DockerHub..."
+      - echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+
+  build:
+    commands:
+      - echo "Building Docker image..."
+      - docker build -t $DOCKERHUB_USERNAME/flask-ci-demo:latest .
+
+  post_build:
+    commands:
+      - echo "Pushing image to DockerHub..."
+      - docker push $DOCKERHUB_USERNAME/flask-ci-demo:latest
+
