@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -34,7 +34,7 @@ jobs:
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/flask-ci-demo-GHA:latest .
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/flask-ci-demo-gha:latest .
 
       - name: Push to DockerHub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask-ci-demo-GHA:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/flask-ci-demo-gha:latest
