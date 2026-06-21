@@ -39,14 +39,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKERHUB_USERNAME/flask-ci-demo:latest .'
+                sh 'docker build -t $DOCKERHUB_USERNAME/flask-ci-demo-JENKINS:latest .'
             }
         }
 
         stage('Push to DockerHub') {
             steps {
                 sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
-                sh 'docker push $DOCKERHUB_USERNAME/flask-ci-demo:latest'
+                sh 'docker push $DOCKERHUB_USERNAME/flask-ci-demo-JENKINS:latest'
             }
         }
     }

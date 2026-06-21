@@ -21,10 +21,10 @@ phases:
   build:
     commands:
       - echo "Building Docker image..."
-      - docker build -t $DOCKERHUB_USERNAME/flask-ci-demo:latest .
+      - docker build -t $DOCKERHUB_USERNAME/flask-ci-demo-CP:latest .
 
   post_build:
     commands:
       - echo "Pushing image to DockerHub..."
-      - docker push $DOCKERHUB_USERNAME/flask-ci-demo:latest
+      - docker push $DOCKERHUB_USERNAME/flask-ci-demo-CP:latest
 
