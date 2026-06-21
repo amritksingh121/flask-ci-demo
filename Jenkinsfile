@@ -15,7 +15,7 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'pip3 install -r requirements.txt'
+                sh 'pip3 install -r requirements.txt --break-system-packages'
             }
         }
 
@@ -39,14 +39,14 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $DOCKERHUB_USERNAME/flask-ci-demo-JENKINS:latest .'
+                sh 'docker build -t $DOCKERHUB_USERNAME/flask-ci-demo-jenkins:latest .'
             }
         }
 
         stage('Push to DockerHub') {
             steps {
                 sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin'
-                sh 'docker push $DOCKERHUB_USERNAME/flask-ci-demo-JENKINS:latest'
+                sh 'docker push $DOCKERHUB_USERNAME/flask-ci-demo-jenkins:latest'
             }
         }
     }
